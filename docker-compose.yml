@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+
+  tripbuilder:
+
+    build: .
+
+    container_name: tripbuilder
+
+    restart: unless-stopped
+
+    ports:
+      - "8000:8000"
+
+    environment:
+
+      PHOTON_URL: "http://172.16.3.253:2322"
+
+      DAWARICH_URL: "http://172.16.3.254:3000"
