@@ -17,3 +17,6 @@ A companion application for Dawarich that allows historical trips to be recreate
 ✅ FastAPI running in Docker
 
 Version: 0.1.0
+
+
+
