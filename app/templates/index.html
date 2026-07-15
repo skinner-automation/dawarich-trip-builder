@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<title>{{ title }}</title>
+    <meta charset="utf-8">
 
-<link
- rel="stylesheet"
- href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <title>{{ title }}</title>
 
-<style>
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
-html,body{
-    margin:0;
-    padding:0;
-    height:100%;
-}
-
-#map{
-    height:90vh;
-}
-
-.toolbar{
-    padding:10px;
-    background:#eeeeee;
-}
-
-</style>
+    <link rel="stylesheet"
+          href="/static/css/style.css">
 
 </head>
 
 <body>
 
-<div class="toolbar">
+<div id="container">
 
-<input
-id="search"
-type="text"
-placeholder="Search place...">
+    <div id="sidebar">
 
-<button onclick="searchPlace()">
-Search
-</button>
+        <h2>Dawarich Trip Builder</h2>
+
+        <input
+            id="searchBox"
+            type="text"
+            placeholder="Search for a place">
+
+        <button id="searchButton">
+            Search
+        </button>
+
+        <hr>
+
+        <h3>Trip Stops</h3>
+
+        <div id="tripList">
+
+            No stops yet.
+
+        </div>
+
+    </div>
+
+    <div id="map"></div>
 
 </div>
 
-<div id="map"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script src="/static/js/map.js"></script>
+<script type="module" src="/static/js/map.js"></script>
 
 </body>
+
 </html>

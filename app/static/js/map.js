@@ -1,35 +1,52 @@
-var map = L.map('map').setView([51.505, -0.09], 5);
+import { search } from "./search.js";
+
+const map = L.map("map").setView([51.505,-0.09],5);
 
 L.tileLayer(
-    'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
-        maxZoom:19
+        maxZoom:19,
+        attribution:"© OpenStreetMap"
     }
 ).addTo(map);
 
-var marker = null;
+let marker = null;
 
-async function searchPlace(){
+async function doSearch() {
 
-    let q=document.getElementById("search").value;
+    const query =
+        document.getElementById("searchBox").value;
 
-    let response=await fetch("/api/search?q="+encodeURIComponent(q));
-
-    let results=await response.json();
-
-    if(results.features.length===0)
+    if (!query)
         return;
 
-    let feature=results.features[0];
+    const data = await search(query);
 
-    let lat=feature.geometry.coordinates[1];
-    let lon=feature.geometry.coordinates[0];
+    if (!data.features.length)
+        return;
 
-    if(marker)
+    const feature = data.features[0];
+
+    const lat =
+        feature.geometry.coordinates[1];
+
+    const lon =
+        feature.geometry.coordinates[0];
+
+    if (marker)
         map.removeLayer(marker);
 
-    marker=L.marker([lat,lon]).addTo(map);
+    marker = L.marker([lat,lon])
+        .addTo(map);
 
-    map.setView([lat,lon],13);
+    marker.bindPopup(
+        feature.properties.name
+    );
+
+    map.setView([lat,lon],12);
 
 }
+
+document
+    .getElementById("searchButton")
+    .addEventListener("click",doSearch);
