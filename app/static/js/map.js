@@ -1,4 +1,6 @@
 import { search } from "./search.js";
+import { addWaypoint } from "./trip.js";
+import { refreshTripList } from "./ui.js";
 
 const map = L.map("map").setView([51.505,-0.09],5);
 
@@ -11,6 +13,7 @@ L.tileLayer(
 ).addTo(map);
 
 let marker = null;
+
 
 async function doSearch() {
 
@@ -33,6 +36,8 @@ async function doSearch() {
     const lon =
         feature.geometry.coordinates[0];
 
+        
+
     if (marker)
         map.removeLayer(marker);
 
@@ -41,7 +46,23 @@ async function doSearch() {
 
     marker.bindPopup(
         feature.properties.name
+
+     
+     
     );
+addWaypoint({
+
+    name: feature.properties.name,
+
+    country: feature.properties.country,
+
+    lat: lat,
+
+    lon: lon
+
+});
+
+refreshTripList();
 
     map.setView([lat,lon],12);
 
