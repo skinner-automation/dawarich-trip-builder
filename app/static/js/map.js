@@ -1,6 +1,8 @@
+import { refreshMap } from "./mapRenderer.js";
 import { search } from "./search.js";
 import { addWaypoint } from "./trip.js";
 import { refreshTripList } from "./ui.js";
+//console.log("map.js loaded");
 
 const map = L.map("map").setView([51.505,-0.09],5);
 
@@ -12,11 +14,10 @@ L.tileLayer(
     }
 ).addTo(map);
 
-let marker = null;
 
 
 async function doSearch() {
-
+//  console.log("Search clicked");
     const query =
         document.getElementById("searchBox").value;
 
@@ -24,7 +25,7 @@ async function doSearch() {
         return;
 
     const data = await search(query);
-
+//console.log(data);
     if (!data.features.length)
         return;
 
@@ -37,19 +38,7 @@ async function doSearch() {
         feature.geometry.coordinates[0];
 
         
-
-    if (marker)
-        map.removeLayer(marker);
-
-    marker = L.marker([lat,lon])
-        .addTo(map);
-
-    marker.bindPopup(
-        feature.properties.name
-
-     
-     
-    );
+//console.log("Adding waypoint");
 addWaypoint({
 
     name: feature.properties.name,
@@ -63,10 +52,14 @@ addWaypoint({
 });
 
 refreshTripList();
+ //   map.setView([lat,lon],12);
 
-    map.setView([lat,lon],12);
+map.setView([lat, lon], 12);
 
+refreshMap(map);
+//console.log("Refreshing map");
 }
+
 
 document
     .getElementById("searchButton")
