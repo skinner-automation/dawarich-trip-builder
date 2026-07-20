@@ -1,4 +1,4 @@
-import { trip } from "./trip.js";
+import { currentProject } from "./trip.js";
 
 export function refreshTripList() {
 
@@ -6,12 +6,12 @@ export function refreshTripList() {
 
     list.innerHTML = "";
 
-    if (trip.waypoints.length === 0) {
+    if (currentProject?.waypoints.length === 0) {
         list.innerHTML = "<p>No stops yet.</p>";
         return;
     }
 
-    trip.waypoints.forEach((stop, index) => {
+    currentProject?.waypoints.forEach((stop, index) => {
 
         const card = document.createElement("div");
 

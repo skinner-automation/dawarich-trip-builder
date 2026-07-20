@@ -1,29 +1,37 @@
-export const trip = {
-    name: "New Trip",
-    description: "",
-    waypoints: []
-};
+export const projects = [];
 
-export function addWaypoint(place) {
+export let currentProject = null;
 
-    trip.waypoints.push({
+export function createProject(name = "New Trip") {
 
-        id: Date.now().toString() + Math.random().toString(16).slice(2),
+    const project = {
 
-        ...place
+        id: Date.now().toString(),
+
+        name,
+
+        waypoints: []
+
+    };
+
+    projects.push(project);
+
+    currentProject = project;
+
+    return project;
+}
+
+export function addWaypoint(stop) {
+
+    if (!currentProject)
+        createProject();
+
+    currentProject.waypoints.push({
+
+        id: Date.now().toString(),
+
+        ...stop
 
     });
-
-}
-
-export function removeWaypoint(index) {
-
-    trip.waypoints.splice(index,1);
-
-}
-
-export function clearTrip() {
-
-    trip.waypoints = [];
 
 }

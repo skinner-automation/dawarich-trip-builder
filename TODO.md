@@ -24,3 +24,21 @@
 - [ ] Importing locations from Dawarich
 - [ ] Saving and loading trips
 - [ ] Exporting GPX
+
+Now
+----
+☐ Delete trip stop
+☐ Reorder stops
+☐ Save trip
+
+Next
+----
+☐ Import from Dawarich
+☐ GPX export
+☐ Routing engine
+
+Future
+------
+☐ Elevation
+☐ Multiple trips
+☐ Offline tiles

@@ -1,4 +1,4 @@
-import { trip } from "./trip.js";
+import { currentProject } from "./trip.js";
 
 let markers = [];
 let route = null;
@@ -16,8 +16,9 @@ export function refreshMap(map) {
     }
 
     const coords = [];
+    const waypoints = currentProject?.waypoints ?? [];
 
-    trip.waypoints.forEach((stop, index) => {
+    waypoints.forEach((stop, index) => {
 
         const marker = L.marker([stop.lat, stop.lon])
             .bindPopup(`<b>${index + 1}. ${stop.name}</b>`);
@@ -34,12 +35,32 @@ export function refreshMap(map) {
 
         route = L.polyline(coords, {
 
-            weight: 4
-
+            weight: 4,
+            color: "#ff00c8"
+        
         });
 
         route.addTo(map);
 
     }
+    // Auto-fit the map to the trip
 
+    if (waypoints.length === 1) {
+
+        map.setView(
+            [waypoints[0].lat, waypoints[0].lon],
+            12
+        );
+
+    } else if (waypoints.length > 1) {
+
+        const bounds = L.latLngBounds(
+            waypoints.map(w => [w.lat, w.lon])
+        );
+
+        map.fitBounds(bounds, {
+            padding: [40, 40]
+        });
+
+    }
 }
